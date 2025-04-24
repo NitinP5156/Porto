@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import { SunIcon, MoonIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
+import { Bars3Icon } from '@heroicons/react/24/outline';
+import ThemeToggle from './ThemeToggle';
+import '../styles/ThemeToggle.css';
 
 const Header = ({ toggleSidebar }) => {
-  const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isHovered, setIsHovered] = useState(null);
 
   // Navigation items
   const navItems = [
@@ -56,9 +57,11 @@ const Header = ({ toggleSidebar }) => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold gradient-text"
+            className="text-2xl font-bold"
           >
-            Portfolio
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Portfolio
+            </span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -67,6 +70,8 @@ const Header = ({ toggleSidebar }) => {
               <motion.a
                 key={item.id}
                 href={`#${item.id}`}
+                onHoverStart={() => setIsHovered(item.id)}
+                onHoverEnd={() => setIsHovered(null)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 className={`relative text-sm font-medium transition-colors ${
@@ -76,7 +81,7 @@ const Header = ({ toggleSidebar }) => {
                 }`}
               >
                 {item.label}
-                {activeSection === item.id && (
+                {(activeSection === item.id || isHovered === item.id) && (
                   <motion.div
                     layoutId="activeSection"
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
@@ -90,37 +95,17 @@ const Header = ({ toggleSidebar }) => {
 
           {/* Theme Toggle & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={isDark ? 'dark' : 'light'}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {isDark ? (
-                    <SunIcon className="w-6 h-6 text-yellow-400" />
-                  ) : (
-                    <MoonIcon className="w-6 h-6 text-gray-600" />
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </motion.button>
+            <ThemeToggle />
 
             {/* Mobile Menu Button */}
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleSidebar}
-              className="p-2 md:hidden rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 md:hidden rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors relative overflow-hidden"
             >
-              <Bars3Icon className="w-6 h-6 text-dark dark:text-light" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 hover:opacity-100 transition-opacity" />
+              <Bars3Icon className="w-6 h-6 text-dark dark:text-light relative z-10" />
             </motion.button>
           </div>
         </div>

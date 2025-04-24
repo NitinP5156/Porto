@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '../config/data';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import { ArrowDownTrayIcon, ArrowRightIcon, CodeBracketIcon, PaperAirplaneIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import AnimatedButton from './AnimatedButton';
+import VantaGlobe from './VantaGlobe';
 
 const Hero = () => {
   const containerVariants = {
@@ -26,16 +28,22 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-16">
+    <section id="hero" className="min-h-screen flex items-center pt-16 relative overflow-hidden">
+      <VantaGlobe />
+      
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="container mx-auto px-4"
+        className="container mx-auto px-4 relative z-10"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-6">
+            <motion.div variants={itemVariants} className="inline-block">
+              <span className="text-primary font-mono text-sm md:text-base">Hi, my name is</span>
+            </motion.div>
+            
             <motion.h1
               variants={itemVariants}
               className="text-4xl md:text-6xl font-bold text-dark dark:text-light"
@@ -52,7 +60,7 @@ const Hero = () => {
             
             <motion.p
               variants={itemVariants}
-              className="text-lg text-secondary"
+              className="text-lg text-secondary max-w-lg"
             >
               {portfolioData.bio}
             </motion.p>
@@ -61,18 +69,26 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-wrap gap-4"
             >
+              <AnimatedButton
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="flex items-center justify-center gap-2"
+              >
+                <span>Contact Me</span>
+                <ArrowRightIcon className="h-5 w-5" />
+              </AnimatedButton>
+              
               <a
-                href="#contact"
-                className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+                href={portfolioData.resume}
+                download="Nitingouda_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex"
               >
-                Contact Me
+                <AnimatedButton className="flex items-center justify-center gap-2">
+                  <ArrowDownTrayIcon className="h-5 w-5" />
+                  <span>Download CV</span>
+                </AnimatedButton>
               </a>
-              <button
-                className="px-6 py-3 border-2 border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors flex items-center gap-2"
-              >
-                <ArrowDownTrayIcon className="h-5 w-5" />
-                Download Resume
-              </button>
             </motion.div>
           </div>
 
@@ -82,8 +98,8 @@ const Hero = () => {
             className="relative"
           >
             <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl" />
-              <img
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-3xl animate-pulse" />
+              <motion.img
                 src="/images/profile.jpg"
                 alt={portfolioData.name}
                 className="relative w-full h-full object-cover rounded-full border-4 border-primary shadow-xl"
@@ -91,32 +107,23 @@ const Hero = () => {
                   objectFit: 'cover',
                   objectPosition: 'center top'
                 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
               />
+              <motion.div
+                className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-sm font-medium">Available for work</span>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="animate-bounce">
-            <svg
-              className="w-6 h-6 text-primary"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );

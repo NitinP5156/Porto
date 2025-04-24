@@ -4,10 +4,13 @@ export const portfolioData = {
   bio: "Passionate about creating elegant solutions to complex problems. Specializing in React, Node.js, and modern web technologies.",
   email: "nitingoudap@gmail.com",
   location: "Shivamogga, Karnataka",
+  resume: "/documents/Nitingouda_Resume.pdf",
   socialLinks: {
-    github: "https://github.com/johndoe",
-    linkedin: "https://linkedin.com/in/johndoe",
-    twitter: "https://twitter.com/johndoe",
+    github: "https://github.com/NitinP5156",
+    linkedin: "https://www.linkedin.com/in/nitingouda-patil-26062724a",
+    gmail: "mailto:nitingoudap@gmail.com",
+    instagram: "https://www.instagram.com/nitin__5156/",
+    whatsapp: "https://wa.me/+917975270408"
   },
   skills: [
     { name: "Python", level: 90 },
@@ -22,19 +25,19 @@ export const portfolioData = {
   ],
   projects: [
     {
-      title: "San-Net Social Media Platform",
-      description: "An Instagram-inspired social media platform built with Django, allowing users to share moments, interact through posts, and engage with a community. Features a modern, intuitive interface with real-time interactions.",
-      techStack: ["Python", "Django", "JavaScript", "SQLite", "Bootstrap", "HTML/CSS"],
-      image: "/images/san-net.jpg",
-      github: "https://github.com/yourusername/san-net",
-      live: "https://san-net.com",
+      title: "SAN-NET",
+      description: "A modern social media platform with a beautiful, minimalist design. Connect, share, and inspire with your community through a seamless and intuitive user experience.",
+      techStack: ["React", "Next.js", "Tailwind CSS", "Node.js", "MongoDB", "Express"],
+      image: "/images/san-net.png",
+      github: "https://github.com/NitinP5156/Porto",
+      live: "https://porto-steel-five.vercel.app",
       features: [
-        "Post Creation: Users can create and share posts with images and captions",
-        "Interactive Feed: Dynamic news feed showing posts from all users",
-        "Social Features: Like and comment functionality on posts",
-        "User Profiles: Customizable user profiles with profile pictures and bio",
-        "Authentication: Secure user registration and login system",
-        "Responsive Design: Mobile-friendly interface for easy access on any device"
+        "Modern UI: Clean and intuitive interface with smooth animations",
+        "Real-time Updates: Instant notifications and message delivery",
+        "Post Creation: Share your thoughts, images, and moments",
+        "Social Features: Follow users, like and comment on posts",
+        "Dark Mode: Beautiful dark theme support for comfortable viewing",
+        "Responsive Design: Perfect experience across all devices"
       ]
     },
     {
